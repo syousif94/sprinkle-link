@@ -1,8 +1,40 @@
 <html>
-  <head>
-    <title>Get Sprinkle</title>
-  </head>
-  <body>
-    <a href="https://itunes.apple.com/us/app/sprinkle-find-your-cravings/id1270402991?ls=1&mt=8">App Store</a>
-  </body>
+
+<head>
+  <title>Get Sprinkle</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('./bg.svg');
+      background-size: auto 100%;
+      background-repeat: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .link {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview {
+      height: 75vh;
+      margin-bottom: 10px;
+    }
+
+    img {
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="link" href="https://itunes.apple.com/us/app/sprinkle-find-your-cravings/id1270402991?ls=1&mt=8">
+    <img class="preview" src="./preview.png" />
+    <img src="./badge.svg" />
+  </a>
+</body>
+
 </html>
