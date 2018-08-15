@@ -1,0 +1,44 @@
+:global .mapboxgl-ctrl-geolocate,
+:global .mapboxgl-ctrl-bottom-right,
+:global .mapboxgl-ctrl-bottom-left {
+  display: none !important;
+}
+
+.map {
+  flex: 1;
+  background: gray;
+}
+
+.marker {
+  display: flex;
+  cursor: pointer;
+}
+
+.img {
+  position: absolute;
+  pointer-events: none;
+}
+
+.rank {
+  color: #fff;
+  font-weight: 500;
+  position: absolute;
+  top: -5px;
+  right: -2px;
+  border-radius: 9px;
+  font-size: 11px;
+  padding: 0 5px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bigRank {
+  top: -4px;
+  right: -3px;
+  border-radius: 12px;
+  font-size: 18px;
+  padding: 0 6px;
+  height: 24px;
+}

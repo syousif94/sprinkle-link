@@ -1,0 +1,9 @@
+.chrome {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  @media (max-width: 550px) {
+    flex-direction: column;
+  }
+}

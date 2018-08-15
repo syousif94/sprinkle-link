@@ -1,0 +1,10 @@
+.container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @media (max-width: 550px) {
+    display: flex;
+    flex-grow: 1;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+}
