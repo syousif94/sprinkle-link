@@ -14,9 +14,28 @@
   cursor: pointer;
 }
 
+.bigMarker {
+  z-index: 99;
+}
+
 .img {
   position: absolute;
   pointer-events: none;
+}
+
+.restaurant {
+  position: absolute;
+  top: 100%;
+  text-align: center;
+  color: #000;
+  left: -20px;
+  right: -20px;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
 }
 
 .rank {

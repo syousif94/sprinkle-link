@@ -1,7 +1,7 @@
 .container {
   overflow-y: scroll;
   overflow-x: hidden;
-  @media (max-width: 550px) {
+  @media (max-width: 768px) {
     display: flex;
     flex-grow: 1;
     overflow-y: hidden;

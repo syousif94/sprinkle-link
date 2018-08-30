@@ -31,29 +31,7 @@ class MapView extends Component {
   }
 
   _onLoad = async () => {
-    const res = await this._getDishes();
-
-    this.props.setData({
-      results: res.dishes.map(dish => dish._id),
-      dishes: _(res.dishes)
-        .keyBy("_id")
-        .mapValues((doc, id) => {
-          return {
-            id,
-            ...doc._source
-          };
-        })
-        .value(),
-      restaurants: _(res.restaurants)
-        .keyBy("_id")
-        .mapValues((doc, id) => {
-          return {
-            id,
-            ...doc._source
-          };
-        })
-        .value()
-    });
+    await this._getDishes();
 
     this._watchSelected();
 
@@ -62,11 +40,14 @@ class MapView extends Component {
 
   _watchBounds = () => {
     const onChange = () => {
-      const bounds = this._getBounds();
-      this.props.setSearch({ bounds });
+      requestAnimationFrame(() => {
+        const bounds = this._getBounds();
+        this.props.setSearch({ bounds });
+        this._getDishes();
+      });
     };
 
-    const debounced = _.debounce(onChange, 150);
+    const debounced = _.debounce(onChange, 350);
 
     this._map.on("zoomend", debounced);
     this._map.on("moveend", debounced);
@@ -119,6 +100,32 @@ class MapView extends Component {
   };
 
   _getDishes = async () => {
+    const res = await this._fetchDishes();
+
+    this.props.setData({
+      results: res.dishes.map(dish => dish._id),
+      dishes: _(res.dishes)
+        .keyBy("_id")
+        .mapValues((doc, id) => {
+          return {
+            id,
+            ...doc._source
+          };
+        })
+        .value(),
+      restaurants: _(res.restaurants)
+        .keyBy("_id")
+        .mapValues((doc, id) => {
+          return {
+            id,
+            ...doc._source
+          };
+        })
+        .value()
+    });
+  };
+
+  _fetchDishes = async () => {
     const bounds = this._getBounds();
 
     this.props.setSearch({ bounds });
@@ -174,7 +181,27 @@ class MapView extends Component {
   _orderedMarkers = [];
 
   _renderMarkers = markers => {
-    this._markers = _.mapValues(markers, (marker, index) => {
+    this._orderedMarkers = [];
+
+    if (_.size(this._markers)) {
+      _.map(this._markers, (marker, key) => {
+        if (!markers[key]) {
+          marker.mapbox.remove();
+          delete this._markers[key];
+        }
+      });
+    }
+
+    this._markers = _.mapValues(markers, (marker, key) => {
+      if (this._markers[key]) {
+        marker.mapbox = this._markers[key].mapbox;
+        marker.toggle = this._markers[key].toggle;
+
+        this._orderedMarkers.push(marker.mapbox);
+
+        return marker;
+      }
+
       const { dishes, restaurant, selected } = marker;
 
       const dish = dishes[selected];
@@ -195,8 +222,6 @@ class MapView extends Component {
         imageWidth,
         imageStyle
       } = this._markerStyleForScale(scale);
-
-      const rankStyle = `background-color: ${color}`;
 
       el.style.height = currentHeight;
       el.style.width = currentWidth;
@@ -220,8 +245,8 @@ class MapView extends Component {
       <img style="${imageStyle}" height="${imageWidth}px" width="${imageWidth}px" src="https://d39k7p1a16t3h6.cloudfront.net/thumb/${id}/${thumb}.jpg" class="${
         styles.img
       }" />
-      <div style="${rankStyle}" class="${styles.rank}">
-        ${Number(selected) + 1}${_.size(dishes) > 1 ? "+" : ""}
+      <div class="${styles.restaurant}">
+        ${restaurant._source.name}
       </div>
       `;
 
@@ -237,10 +262,8 @@ class MapView extends Component {
       marker.toggle = () => {
         const resize = expanded ? smallResize : bigResize;
         resize(marker.mapbox);
-        const rank = marker.mapbox
-          .getElement()
-          .getElementsByClassName(styles.rank)[0];
-        rank.classList.toggle(styles.bigRank);
+        const el = marker.mapbox.getElement();
+        el.classList.toggle(styles.bigMarker);
         expanded = !expanded;
       };
 
