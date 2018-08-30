@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mapbox/polyline": "^0.2.0",
+    "ReconnectingWebSocket": "joewalnes/reconnecting-websocket",
     "autoprefixer": "7.1.2",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
@@ -44,7 +45,6 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-redux": "^5.0.0-alpha.9",
-    "reconnecting-websocket": "^4.0.0-rc5",
     "redux": "^3.7.2",
     "redux-observable": "^0.17.0",
     "redux-thunk": "^2.2.0",

@@ -245,8 +245,15 @@ class MapView extends Component {
       <img style="${imageStyle}" height="${imageWidth}px" width="${imageWidth}px" src="https://d39k7p1a16t3h6.cloudfront.net/thumb/${id}/${thumb}.jpg" class="${
         styles.img
       }" />
-      <div class="${styles.restaurant}">
-        ${restaurant._source.name}
+      <div class="${styles.markerText}">
+        <div class="${styles.restaurant}">
+          ${restaurant._source.name}
+        </div>
+        <div class="${styles.address}">
+          ${restaurant._source.address.top}
+          <br />
+          ${restaurant._source.city}
+        </div>
       </div>
       `;
 
@@ -264,6 +271,10 @@ class MapView extends Component {
         resize(marker.mapbox);
         const el = marker.mapbox.getElement();
         el.classList.toggle(styles.bigMarker);
+        const restaurant = marker.mapbox
+          .getElement()
+          .getElementsByClassName(styles.markerText)[0];
+        restaurant.classList.toggle(styles.bigMarkerText);
         expanded = !expanded;
       };
 

@@ -1,6 +1,6 @@
 import { combineEpics } from "redux-observable";
 import { Observable } from "rxjs/Observable";
-import ReconnectingWebSocket from "reconnecting-websocket/dist/reconnecting-websocket-amd";
+import ReconnectingWebSocket from "ReconnectingWebSocket";
 
 import store from "models/Store";
 import * as Search from "reducers/search";
