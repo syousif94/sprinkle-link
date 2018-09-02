@@ -29,38 +29,44 @@
   text-align: center;
   left: -20px;
   right: -20px;
+  pointer-events: none;
+}
+
+.bigMarkerText {
+  left: -80px;
+  right: -80px;
+
+  & .restaurant {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  & .address {
+    opacity: 1;
+  }
+}
+
+.restaurant {
+  pointer-events: auto;
+  color: #000;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
     1px 1px 0 #fff;
 }
 
-.bigMarkerText {
-  pointer-events: none;
-  left: -40px;
-  right: -40px;
-
-  & .restaurant {
-    font-size: 12px;
-    line-height: 12px;
-    font-weight: 500;
-  }
-
-  & .address {
-    opacity: 1
-  }
-}
-
-.restaurant {
-  color: #000;
-  font-size: 9px;
-  line-height: 9px;
-  font-weight: 400;
-}
-
 .address {
-  color: #424242;
+  pointer-events: none;
+  margin: 4px 0 0;
+  color: #fff;
   opacity: 0;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 500;
+  text-shadow: -1px -1px 0 rgb(54, 54, 54), 1px -1px 0 rgb(54, 54, 54),
+    -1px 1px 0 rgb(54, 54, 54), 1px 1px 0 rgb(54, 54, 54);
 }

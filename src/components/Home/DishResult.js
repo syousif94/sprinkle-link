@@ -10,7 +10,7 @@ const DishResult = ({ index, dish, onClick, selected }) => (
     style={{ backgroundColor: selected ? "#f2f2f2" : "#fff" }}
     onClick={onClick}
   >
-    <img src={dish.thumb} className={styles.preview} />
+    <img src={dish.thumb} className={styles.preview} alt="of food" />
     <div className={styles.itemInfo}>
       <div className={styles.itemName}>
         {index + 1}. {dish.name}
@@ -20,7 +20,11 @@ const DishResult = ({ index, dish, onClick, selected }) => (
       </div>
       <div className={styles.itemTags}>{dish.tags.join(", ")}</div>
       <div className={styles.itemRestaurant}>{dish.restaurant.name}</div>
-      <div className={styles.itemDetail}>{dish.restaurant.city}</div>
+      <div className={styles.itemDetail}>
+        {dish.restaurant.address.top}
+        <br />
+        {dish.restaurant.city}
+      </div>
     </div>
   </div>
 );
