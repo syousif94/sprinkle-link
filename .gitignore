@@ -5,5 +5,4 @@ __pycache__
 .vscode
 yarn-error.log
 dist
-build
 coverage
