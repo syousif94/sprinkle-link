@@ -63,7 +63,7 @@
   },
   "scripts": {
     "start": "DANGEROUSLY_DISABLE_HOST_CHECK=true node scripts/start.js",
-    "build": "node scripts/build.js && mv build demo",
+    "build": "node scripts/build.js && rm -rf demo && mv build demo",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "chmod -R a+x ./scripts && ./scripts/deploy.sh"
   },
