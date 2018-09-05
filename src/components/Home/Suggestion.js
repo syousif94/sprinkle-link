@@ -5,14 +5,25 @@ import * as Search from "reducers/search";
 import store from "models/Store";
 
 import styles from "./styles.css";
+import SearchBox from "components/Home/SearchBox";
+import MapView from "components/MapView";
 
 class Suggestion extends Component {
-  _onClick = () => {
+  _onClick = e => {
+    e.preventDefault();
+
+    const { tag } = this.props;
+
+    if (tag.bounds) {
+      MapView.emitter.emit("bounds", tag.bounds);
+      return;
+    }
+
     const {
       search: { query: current }
     } = store.getState();
 
-    const text = this.props.tag.text;
+    const text = tag.text;
 
     const lastChar = current.substring(current.length - 1);
 
@@ -30,6 +41,10 @@ class Suggestion extends Component {
     this.props.setSearch({
       query
     });
+
+    SearchBox.emitter.emit("focus");
+
+    MapView.emitter.emit("search");
   };
   render() {
     const { tag, index } = this.props;

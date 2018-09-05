@@ -58,7 +58,7 @@ const popular = (action$, store) =>
     .switchMap(
       defer(async () => {
         const {
-          search: { bounds, query }
+          search: { bounds }
         } = store.getState();
 
         try {
@@ -83,4 +83,32 @@ const popular = (action$, store) =>
     )
     .filter(action => action);
 
-export default combineEpics(popular, suggested);
+const cities = (action$, store) =>
+  action$
+    .ofType(Search.types.set)
+    .filter(action => action.payload.bounds)
+    .switchMap(
+      defer(async () => {
+        const {
+          search: { bounds }
+        } = store.getState();
+
+        try {
+          const res = await api("popular-cities", {
+            bounds
+          });
+
+          const cities = res.cities;
+
+          return Search.actions.set({
+            cities
+          });
+        } catch (error) {
+          console.log({ error });
+          return null;
+        }
+      })
+    )
+    .filter(action => action);
+
+export default combineEpics(popular, suggested, cities);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as MapboxGl from "mapbox-gl";
 import { push } from "react-router-redux";
+import EventEmitter from "eventemitter3";
 
 import styles from "./styles.css";
 import api from "lib/api";
@@ -10,6 +11,7 @@ import * as Data from "reducers/data";
 import * as Search from "reducers/search";
 import store from "models/Store";
 import List from "components/List";
+import { now } from "lib/time";
 
 MapboxGl.accessToken =
   "pk.eyJ1IjoiaGFtZWVkbyIsImEiOiJHMnhTMDFvIn0.tFZs7sYMghY-xovxRPNNnw";
@@ -19,6 +21,7 @@ class MapView extends Component {
   static center = [-97.667684070742538, 33.229236835987024];
   static zoom = [3.5];
   static colors = ["#F272A7", "#FB9F6A", "#7DDAD7", "#EBD36D", "#92DA7D"];
+  static emitter = new EventEmitter();
 
   componentDidMount() {
     this._map = new MapboxGl.Map({
@@ -31,7 +34,20 @@ class MapView extends Component {
     this._map.on("load", this._onLoad);
 
     this._map.on("click", this._onMapClick);
+
+    MapView.emitter.on("bounds", this._onBounds);
+
+    MapView.emitter.on("search", this._getDishes);
   }
+
+  _onBounds = bounds => {
+    const fitTo = [
+      [bounds.southwest.lng, bounds.southwest.lat],
+      [bounds.northeast.lng, bounds.northeast.lat]
+    ];
+
+    this._map.fitBounds(fitTo);
+  };
 
   _onMapClick = e => {
     this.props.setData({ selected: null });
@@ -109,6 +125,7 @@ class MapView extends Component {
   };
 
   _getDishes = async () => {
+    this.props.setSearch({ loading: true });
     const res = await this._fetchDishes();
 
     this.props.setData({
@@ -132,6 +149,8 @@ class MapView extends Component {
         })
         .value()
     });
+
+    this.props.setSearch({ loading: false });
   };
 
   _fetchDishes = async () => {
@@ -139,15 +158,35 @@ class MapView extends Component {
 
     this.props.setSearch({ bounds });
 
-    const res = await api(
-      "query",
-      {
-        bounds,
-        filters: { sortBy: "2" },
-        uid: "PQHi2SIrPOZTeU1JgqsLIEeZGV42"
-      },
-      7
-    );
+    const {
+      search: { query: text, sortBy, openNow }
+    } = store.getState();
+
+    const filters = {
+      sortBy
+    };
+
+    if (openNow) {
+      filters.openNow = true;
+      filters.now = now();
+    }
+
+    const body = {
+      bounds,
+      filters,
+      uid: "web"
+    };
+
+    const tags = text
+      .trim()
+      .split(" ")
+      .filter(tag => tag.length);
+
+    if (tags.length) {
+      body.tags = tags;
+    }
+
+    const res = await api("query", body, 7);
 
     const restaurants = _.keyBy(res.restaurants, "_id");
 

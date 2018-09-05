@@ -21,10 +21,34 @@ export const tagList = createSelector(
 );
 
 export default combineReducers({
+  loading: function(state = false, { type, payload }) {
+    switch (type) {
+      case types.set:
+        return payload.loading !== undefined ? payload.loading : state;
+      default:
+        return state;
+    }
+  },
   sortBy: function(state = 2, { type, payload }) {
     switch (type) {
       case types.set:
-        return payload.sortBy ? payload.sortBy : state;
+        return payload.sortBy !== undefined ? payload.sortBy : state;
+      default:
+        return state;
+    }
+  },
+  openNow: function(state = false, { type, payload }) {
+    switch (type) {
+      case types.set:
+        return payload.openNow !== undefined ? payload.openNow : state;
+      default:
+        return state;
+    }
+  },
+  cities: function(state = [], { type, payload }) {
+    switch (type) {
+      case types.set:
+        return payload.cities ? payload.cities : state;
       default:
         return state;
     }

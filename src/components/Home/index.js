@@ -7,7 +7,7 @@ import Sidebar from "components/Sidebar";
 import styles from "./styles.css";
 import DishResult from "./DishResult";
 import SearchBox from "./SearchBox";
-import SearchButton from "./SearchButton";
+import Cities from "./Cities";
 import Suggestions from "./Suggestions";
 
 const ConnectedList = connect((state, props) => ({
@@ -19,13 +19,9 @@ export default class Home extends Component {
     return (
       <Sidebar>
         <div className={styles.search}>
-          <div className={styles.searchRow}>
-            <SearchBox />
-            <SearchButton />
-          </div>
-          <div className={styles.searchRow}>
-            <Suggestions />
-          </div>
+          <Cities />
+          <SearchBox />
+          <Suggestions />
         </div>
         <ConnectedList Item={DishResult} />
       </Sidebar>

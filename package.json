@@ -44,6 +44,7 @@
     "react": "^16.2.0",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.2.0",
+    "react-media": "^1.8.0",
     "react-redux": "^5.0.6",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-tiny-virtual-list": "^2.2.0",
