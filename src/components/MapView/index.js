@@ -9,6 +9,7 @@ import _ from "lodash";
 import * as Data from "reducers/data";
 import * as Search from "reducers/search";
 import store from "models/Store";
+import List from "components/List";
 
 MapboxGl.accessToken =
   "pk.eyJ1IjoiaGFtZWVkbyIsImEiOiJHMnhTMDFvIn0.tFZs7sYMghY-xovxRPNNnw";
@@ -28,7 +29,14 @@ class MapView extends Component {
     });
 
     this._map.on("load", this._onLoad);
+
+    this._map.on("click", this._onMapClick);
   }
+
+  _onMapClick = e => {
+    this.props.setData({ selected: null });
+    List.emitter.emit("selected", null);
+  };
 
   _onLoad = async () => {
     await this._getDishes();
@@ -64,7 +72,7 @@ class MapView extends Component {
         data: { selected, dishes }
       } = store.getState();
 
-      if (previouslySelected === selected) {
+      if (previouslySelected && previouslySelected === selected) {
         return;
       }
 
@@ -75,6 +83,7 @@ class MapView extends Component {
       }
 
       if (!selected) {
+        this._selectedMarker = null;
         return;
       }
 
@@ -278,7 +287,11 @@ class MapView extends Component {
         expanded = !expanded;
       };
 
-      el.addEventListener("click", () => this.props.setData({ selected: id }));
+      el.addEventListener("click", e => {
+        e.stopPropagation();
+        this.props.setData({ selected: id });
+        List.emitter.emit("selected", id);
+      });
 
       this._orderedMarkers.push(marker.mapbox);
 

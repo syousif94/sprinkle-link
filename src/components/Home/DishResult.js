@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import styles from "./styles.css";
 import { makeDish, actions } from "reducers/data";
 
-const DishResult = ({ index, dish, onClick, selected }) => (
+const DishResult = ({ style, index, dish, onClick, selected }) => (
   <div
     className={styles.item}
-    style={{ backgroundColor: selected ? "#f2f2f2" : "#fff" }}
+    style={{ ...style, backgroundColor: selected ? "#f2f2f2" : "#fff" }}
     onClick={onClick}
   >
-    <img src={dish.thumb} className={styles.preview} alt="of food" />
+    <img src={dish.thumb} className={styles.preview} />
     <div className={styles.itemInfo}>
       <div className={styles.itemName}>
         {index + 1}. {dish.name}

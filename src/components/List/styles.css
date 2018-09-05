@@ -1,7 +1,9 @@
+@import "query.css";
+
 .container {
   overflow-y: scroll;
   overflow-x: hidden;
-  @media (max-width: 960px) {
+  @media (max-width: $wide) {
     display: flex;
     flex-grow: 1;
     overflow-y: hidden;

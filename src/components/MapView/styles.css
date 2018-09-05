@@ -16,6 +16,7 @@
 
 .bigMarker {
   z-index: 99;
+  pointer-events: none;
 }
 
 .img {

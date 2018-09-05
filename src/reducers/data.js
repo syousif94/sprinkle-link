@@ -75,7 +75,7 @@ export default combineReducers({
   selected: function(state = null, { type, payload }) {
     switch (type) {
       case types.set:
-        return payload.selected ? payload.selected : state;
+        return payload.selected !== undefined ? payload.selected : state;
       default:
         return state;
     }

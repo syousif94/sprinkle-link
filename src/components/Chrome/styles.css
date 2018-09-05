@@ -1,9 +1,11 @@
+@import "query.css";
+
 .chrome {
   height: 100%;
   width: 100%;
   display: flex;
   position: relative;
-  @media (max-width: 960px) {
+  @media (max-width: $wide) {
     flex-direction: column;
   }
 }
