@@ -28,7 +28,8 @@ class MapView extends Component {
       container: this._mapRef,
       style: MapView.style,
       center: MapView.center,
-      zoom: MapView.zoom
+      zoom: MapView.zoom,
+      minZoom: MapView.zoom
     });
 
     this._map.on("load", this._onLoad);

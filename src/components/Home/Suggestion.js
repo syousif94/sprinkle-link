@@ -15,6 +15,11 @@ class Suggestion extends Component {
     const { tag } = this.props;
 
     if (tag.bounds) {
+      if (tag.type === "city") {
+        this.props.setSearch({
+          query: ""
+        });
+      }
       MapView.emitter.emit("bounds", tag.bounds);
       return;
     }
