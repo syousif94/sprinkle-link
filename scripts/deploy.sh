@@ -1,4 +1,6 @@
 #!/bin/bash
 
 yarn build
-rsync -azP build/ ubuntu@ideakeg.xyz:/home/ubuntu/dtif --exclude .DS_Store
+git add -A
+git commit -m "new build"
+git push

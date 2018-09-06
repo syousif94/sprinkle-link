@@ -20,6 +20,7 @@ class MapView extends Component {
   static style = "mapbox://styles/mapbox/streets-v10";
   static center = [-97.667684070742538, 33.229236835987024];
   static zoom = [3.5];
+  static minZoom = [2];
   static colors = ["#F272A7", "#FB9F6A", "#7DDAD7", "#EBD36D", "#92DA7D"];
   static emitter = new EventEmitter();
 
@@ -29,7 +30,7 @@ class MapView extends Component {
       style: MapView.style,
       center: MapView.center,
       zoom: MapView.zoom,
-      minZoom: MapView.zoom
+      minZoom: MapView.minZoom
     });
 
     this._map.on("load", this._onLoad);
