@@ -30,7 +30,9 @@ class MapView extends Component {
       style: MapView.style,
       center: MapView.center,
       zoom: MapView.zoom,
-      minZoom: MapView.minZoom
+      minZoom: MapView.minZoom,
+      dragRotate: false,
+      pitchWithRotate: false
     });
 
     this._map.on("load", this._onLoad);
