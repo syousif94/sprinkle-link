@@ -157,6 +157,24 @@ class MapView extends Component {
 
       if (this._selectedMarker) {
         this._selectedMarker.toggle();
+
+        const el = this._selectedMarker.mapbox.getElement();
+
+        const img = el.getElementsByClassName(styles.img)[0];
+
+        const src = img.src;
+        const splitSrc = src.split("/");
+        const lastIndex = splitSrc.length - 1;
+
+        const currentThumb = splitSrc[lastIndex].replace(".jpg", "");
+
+        if (currentThumb === dish.thumb) {
+          return;
+        }
+
+        splitSrc[lastIndex] = `${dish.thumb}.jpg`;
+
+        img.src = splitSrc.join("/");
       }
     };
   };
@@ -301,9 +319,7 @@ class MapView extends Component {
         resize(marker.mapbox);
         const el = marker.mapbox.getElement();
         el.classList.toggle(styles.bigMarker);
-        const restaurant = marker.mapbox
-          .getElement()
-          .getElementsByClassName(styles.markerText)[0];
+        const restaurant = el.getElementsByClassName(styles.markerText)[0];
         restaurant.classList.toggle(styles.bigMarkerText);
         expanded = !expanded;
       };
