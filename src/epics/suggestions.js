@@ -1,14 +1,10 @@
 import { combineEpics } from "redux-observable";
-import { Observable } from "rxjs/Observable";
 import ReconnectingWebSocket from "ReconnectingWebSocket";
 
 import store from "models/Store";
 import * as Search from "reducers/search";
 import api from "lib/api";
-
-const defer = func => () => {
-  return Observable.defer(func);
-};
+import defer from "lib/defer";
 
 const socket = new ReconnectingWebSocket(
   "wss://sprinkle.ideakeg.xyz/api/v3/search/tags"

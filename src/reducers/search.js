@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import Immutable from "immutable";
 import { createActions } from "lib/actions";
 import { createSelector } from "reselect";
 
@@ -61,10 +60,10 @@ export default combineReducers({
         return state;
     }
   },
-  resultCount: function(state = 0, { type, payload }) {
+  count: function(state = 0, { type, payload }) {
     switch (type) {
       case types.set:
-        return payload.resultCount ? payload.resultCount : state;
+        return payload.count !== undefined ? payload.count : state;
       default:
         return state;
     }

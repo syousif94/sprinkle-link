@@ -9,6 +9,10 @@ import DishResult from "./DishResult";
 import SearchBox from "./SearchBox";
 import Cities from "./Cities";
 import Suggestions from "./Suggestions";
+import OrderSelect from "./OrderSelect";
+import OpenNow from "./OpenNow";
+import LocateButton from "./LocateButton";
+import ZoomOut from "./ZoomOut";
 
 const ConnectedList = connect((state, props) => ({
   keys: state.data.results
@@ -22,6 +26,12 @@ export default class Home extends Component {
           <Cities />
           <SearchBox />
           <Suggestions />
+          <div className={styles.searchButtons}>
+            <OrderSelect />
+            <OpenNow />
+            <LocateButton />
+            <ZoomOut />
+          </div>
         </div>
         <ConnectedList Item={DishResult} />
       </Sidebar>

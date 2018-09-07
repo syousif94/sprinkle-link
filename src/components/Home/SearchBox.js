@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import EventEmitter from "eventemitter3";
 
 import styles from "./styles.css";
+import ResultCount from "./ResultCount";
+import Spinner from "components/Spinner";
+import ClearButton from "components/ClearButton";
 
 import * as Search from "reducers/search";
 
@@ -30,7 +33,16 @@ class SearchBox extends Component {
     this.props.setSearch({ query });
   };
 
+  _onClear = () => {
+    const query = "";
+    this.props.setSearch({ query });
+  };
+
   render() {
+    const { value, loading } = this.props;
+
+    const clear = !value || !value.length;
+
     return (
       <div className={styles.searchBox}>
         <input
@@ -39,10 +51,17 @@ class SearchBox extends Component {
           className={styles.input}
           type="search"
           onChange={this._onChange}
-          value={this.props.value}
+          value={value}
           autoCorrect="off"
           autoComplete="off"
           spellCheck="false"
+        />
+        <ResultCount />
+        <Spinner className={styles.searchLoading} visible={loading} />
+        <ClearButton
+          className={styles.clearSearch}
+          visible={clear}
+          onClick={this._onClear}
         />
       </div>
     );
@@ -50,7 +69,8 @@ class SearchBox extends Component {
 }
 
 const state = state => ({
-  value: state.search.query
+  value: state.search.query,
+  loading: state.search.loading
 });
 
 const dispatch = {
