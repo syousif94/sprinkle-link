@@ -4,8 +4,8 @@ import EventEmitter from "eventemitter3";
 
 import styles from "./styles.css";
 import ResultCount from "./ResultCount";
-import Spinner from "components/Spinner";
-import ClearButton from "components/ClearButton";
+// import Spinner from "components/Spinner";
+// import ClearButton from "components/ClearButton";
 
 import * as Search from "reducers/search";
 
@@ -57,12 +57,12 @@ class SearchBox extends Component {
           spellCheck="false"
         />
         <ResultCount />
-        <Spinner className={styles.searchLoading} visible={loading} />
+        {/* <Spinner className={styles.searchLoading} visible={loading} />
         <ClearButton
           className={styles.clearSearch}
           visible={clear}
           onClick={this._onClear}
-        />
+        /> */}
       </div>
     );
   }

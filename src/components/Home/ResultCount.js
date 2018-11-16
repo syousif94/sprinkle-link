@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import styles from "./styles";
+import styles from "./styles.css";
 
-const ResultCount = count => (
+const ResultCount = ({ count }) => (
   <div className={styles.resultCount}>
     <div className={styles.count}>{count}</div>
   </div>

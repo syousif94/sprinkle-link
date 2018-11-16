@@ -1,0 +1,344 @@
+<html>
+
+<head>
+  <link rel="icon" type="image/png" href="https://sprinkle.link/icon.png">
+  <link rel="apple-touch-icon" href="https://sprinkle.link/icon.png">
+  <title>{{title}}</title>
+  <meta property="og:title" content="{{title}}">
+  <meta property="al:ios:url" content="sprinkle://dish/{{id}}">
+  <meta property="og:image" content="{{thumbURL}}">
+  <meta property="og:description" content="{{tags}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .scroll {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    #preview {
+      margin: 10px 0 0;
+      max-width: 400px;
+      max-height: 400px;
+      border-radius: 5px;
+      width: calc(100vw - 20px);
+      height: calc(100vw - 20px);
+    }
+
+    #info {
+      max-width: 400px;
+      width: 100vw;
+      padding: 10px 10px 144px;
+      font-size: 16px;
+    }
+
+    .money {
+      color: #50A66A;
+    }
+
+    .tags {
+      color: #5f5f5f;
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      width: calc(100% - 20px);
+      max-width: 400px;
+      margin-bottom: 10px;
+      height: 48px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .app-store {
+      background: #157afc;
+      color: #fff;
+    }
+
+    .open-app {
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .button-icon {
+      margin-left: 8px;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .open-app .button-icon {
+      padding-top: 2px;
+    }
+
+    .button-text {
+      margin-left: 10px;
+      flex-grow: 1;
+    }
+
+    .button-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .button-subtitle {
+      margin: 1px 0 0;
+      font-size: 12px;
+      font-weight: 300;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body ontouchstart="" onbeforeunload="">
+  <div class="scroll">
+    <img id="preview" src="{{thumbURL}}" />
+    <div id="info">
+      <div id="dish">{{{dishName}}}</div>
+      <div id="restaurant">{{restaurantName}}</div>
+      <a id="number" href="tel://{{number}}">{{number}}</a>
+      <a href="{{mapURL}}" id="address">{{{address}}}</a>
+      <div class="tags">{{tags}}</div>
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="app-store button" href="https://itunes.apple.com/us/app/sprinkle-find-your-cravings/id1270402991?ls=1&mt=8">
+      <div class="button-icon">
+        <svg width="40" height="28" viewBox="0 0 48 42" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.2303005.2285651c-.4808729.01296362-.965954.1430909-1.4134161.40144023-1.4318805.82667657-1.9193559 2.64495255-1.0926705 4.07682414l2.9993869 5.19487781-9.5467783 16.53520102H3.17541232c-1.01683035.093888-1.88294678.6927878-2.34520606 1.5458729-.22919196.4229481-.35882035.9078956-.35881053 1.4245845-.00000982 1.6533826 1.33077791 2.9846584 2.98416051 2.9846682H30.4875954c.7847765-1.6477454.4010837-3.6037501-1.159662-4.9456816-.525238-.4515957-1.0950276-1.009444-1.7788234-1.009444h-9.4960276L30.5992475 4.70682947c.8266933-1.43187159.339205-3.25013775-1.0926705-4.07682414-.4474611-.25834932-.9325403-.38845697-1.4134151-.40144024-.9699256-.02622187-1.9214429.42445067-2.5111621 1.25810992l-1.4205225 2.45990664-1.4200158-2.45990664C22.1517473.65301576 21.2002251.2023334 20.2303005.2285651zm8.3642816 11.3961453c-.5545249.1930009-1.0862152.6899791-1.519487 1.5032501-1.0819127 2.0307125-1.1510235 5.2467323-.201988 7.4258881l11.6093007 20.1070527c.8823809 1.2458239 2.5746081 1.6342711 3.9240709.8551573 1.4318727-.8266864 1.9188489-2.6449428 1.0921639-4.076834l-2.9141269-5.0471907h4.3874293c1.5201032-.1412544 2.7024932-1.4127306 2.7024932-2.9709582 0-1.6533925-1.3312762-2.9841576-2.9846697-2.9841674h-7.5431296l-8.5520568-14.8121979zM8.51695979 33.4867432c-.51275848.0000197-1.02540205.0645235-1.52101025.1923429l-2.17113012 3.7601385c-.82669327 1.4318814-.33971177 3.2501476 1.09216374 4.076834 1.34945731.7791138 3.04168758.3906666 3.92407042-.8551573l3.01715002-5.2258334c-.1745975-.2132221-.3696293-.4180277-.5917581-.6090055-1.0386622-.8930366-2.39399736-1.3394076-3.74948571-1.3393192z"
+            fill="#FFF" fill-rule="nonzero" /></svg>
+      </div>
+      <div class="button-text">
+        <div class="button-title">
+          Install from the App Store
+        </div>
+        <div class="button-subtitle">
+          Available for iOS 11.0+
+        </div>
+      </div>
+    </a>
+    <a class="open-app button" href="sprinkle://dish/{{id}}">
+      <div class="button-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="38"
+          viewBox="0 0 54 64">
+          <defs>
+            <filter id="a" width="115.7%" height="113.3%" x="-7.8%" y="-3.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1" />
+              <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.293739371 0 0 0 0 0.293739371 0 0 0 0 0.293739371 0 0 0 0.21631567 0" />
+              <feMerge>
+                <feMergeNode in="shadowMatrixOuter1" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <path id="b" d="M21.8859839 58.3830528S0 42.8251336 0 26.7112029C0 10.5972723 11.2066744 0 25.0308079 0c13.8241335 0 25.030808 10.5972723 25.030808 26.7112029 0 16.1139307-21.8733213 31.6615844-21.8733213 31.6615844-1.7218188 1.3648467-4.5654724 1.3557977-6.3023107.0102655zm3.144824-25.0967845c4.236428 0 7.6707315-3.4957115 7.6707315-7.8078901 0-4.3121786-3.4343035-7.8078901-7.6707315-7.8078901s-7.6707314 3.4957115-7.6707314 7.8078901c0 4.3121786 3.4343034 7.8078901 7.6707314 7.8078901z" />
+            <path id="e" d="M19.6367654 9.37127657c-.4167013.12058411-.8454444-.14819769-.9570364-.59797083l-.7062065-2.8463744c-.1118554-.45083428.1352523-.91405495.5519725-1.03464451l.5646499-.16339717c.4167014-.1205841.8454444.14819769.9570365.59797084l.7062065 2.8463744c.1118553.45083428-.1352523.91405495-.5519725 1.03464451l-.56465.16339716z" />
+            <filter id="d" width="241.2%" height="185.1%" x="-70.6%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="g" d="M10.0871083 8.72149482c.3022207-.35821282.7849243-.34648047 1.0766116.02425133l1.8459329 2.34616395c.2923754.3716064.2844078.9632256-.0178267 1.3214547l-.4095234.4853953c-.3022208.3582128-.7849244.3464805-1.0766116-.0242514l-1.84593294-2.3461639c-.29237539-.3716064-.28440781-.96322564.01782665-1.32145467l.40952349-.48539531z" />
+            <filter id="f" width="205.9%" height="185.1%" x="-52.9%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="i" d="M34.5704785 5.06889104c.3345427.20798733.4728476.72391646.3097719 1.15011407l-1.0320192 2.69717745c-.1634604.42720313-.5671566.60492205-.9017144.39692531l-.4533212-.28183267c-.3345427-.20798734-.4728476-.72391646-.3097719-1.15011407l1.0320192-2.69717745c.1634604-.42720313.5671566-.60492205.9017144-.39692531l.4533212.28183267z" />
+            <filter id="h" width="241.2%" height="185.1%" x="-70.6%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="k" d="M45.2971636 25.4833644c.1450452.390613-.1009564.8106387-.5471089.9374852l-2.8234612.8027441c-.4472051.1271458-.9273122-.0864189-1.072364-.4770496l-.1965432-.529299c-.1450452-.390613.1009563-.8106386.5471088-.9374852l2.8234612-.802744c.4472051-.1271458.9273123.0864188 1.0723641.4770495l.1965432.529299z" />
+            <filter id="j" width="184.7%" height="241.8%" x="-42.3%" y="-35.5%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="m" d="M13.1821647 29.2434088c.1450452.3906129-.1009563.8106386-.5471088.9374851l-2.82346123.8027441c-.44720508.1271458-.92731226-.0864189-1.07236406-.4770495l-.19654315-.5292991c-.14504523-.3906129.10095632-.8106386.54710881-.9374851l2.82346123-.8027441c.4472051-.1271458.9273123.0864189 1.0723641.4770495l.1965431.5292991z" />
+            <filter id="l" width="184.7%" height="241.8%" x="-42.3%" y="-35.5%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="o" d="M18.6089775 39.2278501c-.5130675-.1522634-.7851032-.6358617-.6085392-1.0778182l1.1173798-2.7969068c.1769806-.4429992.736352-.678694 1.2494427-.5264238l.6952308.2063241c.5130676.1522634.7851033.6358617.6085392 1.0778182l-1.1173797 2.7969069c-.1769807.4429991-.736352.6786939-1.2494428.5264237l-.6952308-.2063241z" />
+            <filter id="n" width="205.9%" height="185.1%" x="-52.9%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="q" d="M25.2208891 12.9075398c-.5130676-.1522634-.7851033-.6358617-.6085392-1.0778182l1.1173797-2.79690685c.1769807-.44299917.736352-.67869398 1.2494428-.52642372l.6952308.20632407c.5130675.15226338.7851032.6358617.6085392 1.07781818l-1.1173798 2.79690682c-.1769806.4429992-.736352.678694-1.2494427.5264238l-.6952308-.2063241z" />
+            <filter id="p" width="205.9%" height="185.1%" x="-52.9%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="s" d="M35.6942649 21.5914206c-.4167014.1205842-.8454444-.1481976-.9570365-.5979708l-.7062065-2.8463744c-.1118553-.4508343.1352523-.9140549.5519725-1.0346445l.56465-.1633972c.4167013-.1205841.8454444.1481977.9570364.5979709l.7062065 2.8463744c.1118554.4508342-.1352523.9140549-.5519725 1.0346445l-.5646499.1633971z" />
+            <filter id="r" width="241.2%" height="185.1%" x="-70.6%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="u" d="M13.0248539 21.5914206c-.4167013.1205842-.8454444-.1481976-.9570364-.5979708l-.7062066-2.8463744c-.1118553-.4508343.1352524-.9140549.5519725-1.0346445l.56465-.1633972c.4167013-.1205841.8454444.1481977.9570365.5979709l.7062065 2.8463744c.1118553.4508342-.1352523.9140549-.5519725 1.0346445l-.56465.1633971z" />
+            <filter id="t" width="241.2%" height="185.1%" x="-70.6%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="w" d="M5.40247032 24.3725272c-.47370179.1840372-1.02148292-.0198983-1.22244442-.4532193l-1.27177817-2.7422578c-.20143562-.4343433.01925829-.9356316.49298152-1.1196772l.64188832-.2493792c.4737018-.1840373 1.02148293.0198982 1.22244443.4532193l1.27177817 2.7422578c.20143562.4343433-.01925829.9356315-.49298152 1.1196771l-.64188833.2493793z" />
+            <filter id="v" width="205.9%" height="185.1%" x="-52.9%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="y" d="M41.2957043 36.5926712c-.4737018.1840373-1.0214829-.0198982-1.2224444-.4532192l-1.2717782-2.7422578c-.2014356-.4343434.0192583-.9356316.4929816-1.1196772l.6418883-.2493792c.4737018-.1840373 1.0214829.0198982 1.2224444.4532192l1.2717782 2.7422578c.2014356.4343434-.0192583.9356316-.4929815 1.1196772l-.6418884.2493792z" />
+            <filter id="x" width="205.9%" height="185.1%" x="-52.9%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+            <path id="A" d="M41.0109838 15.0354958c-.5005207.0488364-.9491197-.2900174-1.001697-.7544041l-.3327335-2.938856c-.0527013-.4654823.3103053-.8824179.8108485-.9312565l.6782291-.0661757c.5005207-.0488365.9491197.2900173 1.001697.7544041l.3327335 2.9388559c.0527014.4654824-.3103053.8824179-.8108485.9312566l-.6782291.0661757z" />
+            <filter id="z" width="241.2%" height="185.1%" x="-70.6%" y="-21.3%" filterUnits="objectBoundingBox">
+              <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
+              <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5" />
+              <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            </filter>
+          </defs>
+          <g fill="none" fill-rule="evenodd" filter="url(#a)" transform="translate(2)">
+            <mask id="c" fill="#fff">
+              <use xlink:href="#b" />
+            </mask>
+            <use fill="#FBC57E" xlink:href="#b" />
+            <path fill="#D54687" d="M-1.98812238 41.6301103c1.14717532 5.929034 6.39147302-6.9298328 12.33116118-7.0713008 5.9396881-.1414679 4.1235333 13.7189514 10.1711389 13.3754755 6.0476056-.3434758 7.3781101-10.490517 12.4359898-11.3360488 5.0578797-.8455319 3.5078995 8.2031112 10.6649371 7.474239 7.1570377-.7288723 10.0249306-4.5801525 12.3532304-11.5854297 2.4662322-21.3204086-2.3282998-41.83627355-2.3282998-41.83627355L1.77191624-11.280133S-5.19961252 25.03192-1.98812238 41.6301103z"
+              mask="url(#c)" />
+            <path fill="#FF54A2" d="M-1.98812238 39.7500881c1.14717532 5.929034 6.39147302-6.9298328 12.33116118-7.0713007 5.9396881-.141468 4.1235333 13.7189513 10.1711389 13.3754755 6.0476056-.3434759 7.3781101-10.490517 12.4359898-11.3360489 5.0578797-.8455319 3.5078995 8.2031112 10.6649371 7.474239 7.1570377-.7288722 10.0249306-4.5801525 12.3532304-11.5854296 2.4662322-21.32040868-2.3282998-41.8362736-2.3282998-41.8362736l-51.86811896-1.930905s-6.97152876 36.3120531-3.76003862 52.9102433z"
+              mask="url(#c)" />
+            <path fill="#000" fill-opacity=".08" d="M.17084216 26.8846413c1.5988123 15.305639 21.77300964 29.5486899 21.77300964 29.5486899 1.7438317 1.3420751 4.5931545 1.3556279 6.3276557-.0102154 0 0 20.162203-14.2334193 21.76035-29.5381832.0663828.8463605.1002888 1.7101389.1002888 2.5904953 0 16.0050902-21.8606388 31.4375129-21.8606388 31.4375129-1.7345012 1.3658432-4.583824 1.3522905-6.3276557.0102154 0 0-21.87332132-15.4426381-21.87332132-31.4477283 0-.8804574.03391386-1.744333.10031168-2.5907866z"
+              mask="url(#c)" />
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#d)" xlink:href="#e" />
+              <use fill="#E9E643" xlink:href="#e" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#f)" xlink:href="#g" />
+              <use fill="#58C8CE" xlink:href="#g" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#h)" xlink:href="#i" />
+              <use fill="#58C8CE" xlink:href="#i" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#j)" xlink:href="#k" />
+              <use fill="#58C8CE" xlink:href="#k" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#l)" xlink:href="#m" />
+              <use fill="#58C8CE" xlink:href="#m" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#n)" xlink:href="#o" />
+              <use fill="#D42643" xlink:href="#o" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#p)" xlink:href="#q" />
+              <use fill="#D42643" xlink:href="#q" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#r)" xlink:href="#s" />
+              <use fill="#E9E643" xlink:href="#s" />
+            </g>
+            <g mask="url(#c)" transform="rotate(56 12.752 19.27)">
+              <use fill="#000" filter="url(#t)" xlink:href="#u" />
+              <use fill="#E9E643" xlink:href="#u" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#v)" xlink:href="#w" />
+              <use fill="#D42643" xlink:href="#w" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#x)" xlink:href="#y" />
+              <use fill="#D42643" xlink:href="#y" />
+            </g>
+            <g mask="url(#c)">
+              <use fill="#000" filter="url(#z)" xlink:href="#A" />
+              <use fill="#D42643" xlink:href="#A" />
+            </g>
+            <path fill="#000" fill-opacity=".1" d="M18.0114459 24.4402881c-.042764-.3219111-.0648289-.6502723-.0648289-.9837325 0-4.1290836 3.383147-7.4763672 7.5564703-7.4763672s7.5564703 3.3472836 7.5564703 7.4763672c0 .3334602-.0220648.6618214-.0648288.9837325-.486763-3.6641658-3.6553511-6.4926346-7.4916415-6.4926346s-7.0048785 2.8284688-7.4916414 6.4926346z"
+              mask="url(#c)" />
+            <path fill="#000" fill-opacity=".09" d="M17.0709389 35.7204211c-.0454368-.4292148-.0688807-.8670298-.0688807-1.3116433 0-5.5054448 3.5945937-9.9684897 8.0287497-9.9684897 4.4341561 0 8.0287497 4.4630449 8.0287497 9.9684897 0 .4446135-.0234439.8824285-.0688806 1.3116433-.5171857-4.8855544-3.8838105-8.6568462-7.9598691-8.6568462-4.0760585 0-7.4426834 3.7712918-7.959869 8.6568462z"
+              mask="url(#c)" transform="matrix(1 0 0 -1 0 60.16)" />
+            <path fill="#FF65BB" fill-opacity=".85" d="M.0498457 26.2969491C.01695441 25.8188923 0 25.3377472 0 24.8537803 0 8.72621614 11.2066744-1.88002217 25.0308079-1.88002217c13.8241335 0 25.030808 10.60623831 25.030808 26.73380247 0 .4840891-.0169485.9653423-.049828 1.4434937-.8212547-15.0855706-11.6916973-24.88698202-24.98098-24.88698202-13.2891872 0-24.15956918 9.80127062-24.9809622 24.88665712z"
+              mask="url(#c)" />
+          </g>
+        </svg>
+      </div>
+      <div class="button-text">
+        <div class="button-title">
+          Open in Sprinkle
+        </div>
+        <div class="button-subtitle">
+          App must be installed first
+        </div>
+      </div>
+    </a>
+  </div>
+</body>
+<script>
+  const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  if (!iOS) {
+    document.querySelectorAll('.button').forEach(el => {
+      el.classList.add('hidden')
+    })
+  }
+</script>
+
+</html>

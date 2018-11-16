@@ -1,4 +1,4 @@
-import styles from "./styles.ccss";
+import styles from "./styles.css";
 
 const html = `<div class="${styles.pulse}"></div><div class="${
   styles.dot

@@ -1,0 +1,8 @@
+{
+  "firebase": {
+    "projectId": "sprinkle-f0313",
+    "databaseURL": "https://sprinkle-f0313.firebaseio.com",
+    "storageBucket": "sprinkle-f0313.appspot.com",
+    "cloudResourceLocation": "us-central"
+  }
+}
